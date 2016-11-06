@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
@@ -37,18 +38,16 @@ public class Node
         this.word = word.toLowerCase();
     }
  
-    public Node funcaoQueRetornaONo (int key)
+    public Node funcaoQueRetornaONode (int key)
     {
         return (Node)Children.get(key); 
     }
  
     public ArrayList Keys()
     {
-        
             if(Children == null)
                 return new ArrayList();
-            return (ArrayList) Children.keys();
-        
+            return Collections.list(Children.keys());
     }
  
     public boolean ContainsKey(int key)

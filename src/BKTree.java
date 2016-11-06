@@ -1,27 +1,28 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
  
 public class BKTree
 {
-    private static Node _Root;
+    private static Node Root;
  
     public static void Add(String word)
     {
         word = word.toLowerCase();
-        if (_Root == null)
+        if (Root == null)
         {
-            _Root = new Node(word);
+            Root = new Node(word);
             return;
         }
  
-        Node curNode = _Root;
+        Node curNode = Root;
  
         int dist = LevenshteinDistance(curNode.word, word);
         while (curNode.ContainsKey(dist))
         {
             if (dist == 0) return;
  
-            curNode = curNode.funcaoQueRetornaONo(dist);
+            curNode = curNode.funcaoQueRetornaONode(dist);
             dist = LevenshteinDistance(curNode.word, word);
         }
  
@@ -33,7 +34,7 @@ public class BKTree
         List<String> rtn = new ArrayList<String>();
         word = word.toLowerCase();
  
-        RecursiveSearch(_Root, rtn, word, d);
+        RecursiveSearch(Root, rtn, word, d);
  
         return rtn;
     }
@@ -53,11 +54,14 @@ public class BKTree
  //       }
         
         //for each key in node
-        int size = node.Keys().size();
+        
+        ArrayList n = node.Keys();
+        int size = n.size();
         for (int i = 0; i < size; i++) {
-        	int currentKey = node.Keys().indexOf(i);
+        	int indice = (int)n.get(i);
+        	int currentKey = indice;
         	if ((currentKey >= minDist) && (minDist <= currentKey) && (currentKey <= maxDist)) {
-                RecursiveSearch(node.funcaoQueRetornaONo(i), rtn, word, d);
+                RecursiveSearch(node.funcaoQueRetornaONode(indice), rtn, word, d);
         	}
         }
     }
